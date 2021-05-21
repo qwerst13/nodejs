@@ -1,4 +1,25 @@
 const http = require('http');
+
+
+const server = http.createServer((req, res) => {
+    console.log(req.url);
+    res.write('<h1>Hello from NodeJS</h1>');
+    res.end(`
+        <div style="background: lightblue; width: 200px; height: 200px;">
+          <h2>Test</h2>
+         </div>
+    `);
+});
+
+server.listen(8000, () => {
+    console.log('server is running....')
+})
+
+
+
+
+/*
+const http = require('http');
 const path = require('path');
 const fs = require('fs');
 
@@ -12,10 +33,11 @@ const server = http.createServer((req, res) => {
             fs.readFile(
                 path.join(__dirname, 'src', 'index.html'),
                 'utf-8',
-                (err, data) => {
-                    if (err) throw new Error(err.toString());
+                (err, content) => {
+                    if (err) {throw err}
 
-                    res.end(data.toString());
+                    res.write('index6')
+                    res.end();
                 }
             );
         }
@@ -26,22 +48,9 @@ const server = http.createServer((req, res) => {
                 (err, data) => {
                     if (err) throw new Error(err.toString());
 
-                    res.end(data.toString());
+                    res.end('data');
                 }
             );
-        }
-        else if (req.url === '/api/users') {
-            res.writeHead(200, {
-                'Content-Type': 'text/json'
-            });
-
-            const users = [
-                {name: 'A', age: 18},
-                {name: 'B', age: 18.5}
-            ];
-
-            res.end(JSON.stringify(users));
-
         }
         else {
             res.writeHead(404,
@@ -54,9 +63,9 @@ const server = http.createServer((req, res) => {
             res.end(`<h1>Page not found</h1>`)
         }
 
+        res.end();
 
-    }
-    else if (req.method === 'POST') {
+    } else if (req.method === 'POST') {
         const body = [];
 
         res.writeHead(200, {
@@ -72,7 +81,6 @@ const server = http.createServer((req, res) => {
 
             res.end(`
             <h2>Сообщение: ${message}</h2>
-            <a href="/">Вернутся на главную</a>
         `)
         })
 
@@ -83,3 +91,5 @@ const server = http.createServer((req, res) => {
 server.listen(8000, () => {
     console.log('Server is running...')
 })
+
+* */
